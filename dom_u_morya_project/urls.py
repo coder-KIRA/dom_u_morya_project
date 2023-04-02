@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# static отвечает за обработку статических файлов
+from django.conf.urls.static import static
+from django.conf import settings  # доступ к модулю settings.py
+from houses.views import houses_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", houses_list)  # path - связывает адресс страницы с представлением, " " - пустая строка (url путь главной страницы), houses_list - функция представления из файла urls.py
 ]
+
+# связывание URL медиа  в браузере с медиа на жестком диске, отдавать как есть
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
